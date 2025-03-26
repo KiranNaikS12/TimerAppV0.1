@@ -7,3 +7,10 @@ export interface Timer {
   isRunning: boolean;
   createdAt: number;
 }
+
+export interface TimerControlsProps {
+  isRunning: boolean;
+  remainingTime: number;
+  onToggle: () => void;
+  onRestart: () => void;
+}

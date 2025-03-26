@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Plus, Clock } from 'lucide-react';
 import { TimerList } from '../components/timers/TimerList';
-import { AddTimerModal } from '../components/modals/AddTimerModal';
+import AddTimerModal from '../components/modals/AddTimerModal';
 import { Toaster } from 'sonner';
 import Button from '../components/ui/Button';
 import { ToastPosition } from '../types/positionProps';
@@ -73,7 +73,7 @@ function Home() {
 
         <AddTimerModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          onClose={toggleModal}
         />
       </div>
     </div>

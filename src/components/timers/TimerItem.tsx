@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { EditTimerModal } from '../modals/EditTimerModal';
 import { TimerAudio } from '../../utils/audio';
 import { TimerControls } from './TimerControls';
-import { TimerProgress } from './TimerProgress';
+import  TimerProgress  from './TimerProgress';
 import Button from '../ui/Button';
 
 interface TimerItemProps {
@@ -65,6 +65,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   },[timer.id, timer.remainingTime, toggleTimer]);
 
   
+  // Handle timer edit modal
   const handleEditToggle = useCallback(() => {
     setIsEditModalOpen((prev) => !prev)
   },[])
@@ -120,7 +121,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
           </div>
           <div className="flex flex-col items-center mt-6">
             <div className="mb-4 font-mono text-4xl font-bold text-gray-800">
-              {formatTime(timer.remainingTime)}
+              {formatTime(timer.remainingTime)} 
             </div>
             
             <TimerProgress
@@ -130,7 +131,6 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
             <TimerControls
               isRunning={timer.isRunning}
               remainingTime={timer.remainingTime}
-              duration={timer.duration}
               onToggle={handleToggle}
               onRestart={handleRestart}
             />
