@@ -28,7 +28,7 @@ function Home() {
 
   return (
     <div className="min-h-screenbg-gradient-to-br from-gray-50 to-gray-100">
-      <Toaster position="top-right" />
+      <Toaster richColors position="top-right" />
       <div className="container px-4 py-8 mx-auto">
 
         {/* Made the container sticky when content exceeds the viewport height*/}

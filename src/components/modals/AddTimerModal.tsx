@@ -192,15 +192,12 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
             />
             
             {/* Add new timer */}
+            {/* Removed disabled property from the button */}
             <Button 
               type="submit"
               title='Submit'
               label="Add Timer"
-              className={`px-4 py-2 text-sm font-medium text-white rounded-md transition-colors ${
-                isTitleValid && isTimeValid
-                  ? 'bg-blue-600 hover:bg-blue-700'
-                  : 'bg-blue-400 cursor-not-allowed'
-              }`}
+              className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700"
             />
           </div>
         </form>
