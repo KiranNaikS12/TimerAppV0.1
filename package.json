@@ -19,6 +19,7 @@
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
     "sonner": "^1.4.3",
+    "timer": "file:",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
