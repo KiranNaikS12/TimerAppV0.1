@@ -32,7 +32,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
           timerAudio.play().catch(console.error);
           // Used .bind to maintain 'this' context, ensuring stop method correctly references TimerAudio instance   
           toast.success(`Timer "${timer.title}" has ended!`, {
-            duration: 5000,
+            duration: Infinity, //set to infinity for manual dismiss.
             action: {
               label: 'Dismiss',
               onClick: timerAudio.stop.bind(timerAudio),
