@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Trash2, RotateCcw, Pencil } from 'lucide-react';
-import { Timer } from '../types/timer';
-import { formatTime } from '../utils/time';
-import { useTimerStore } from '../store/useTimerStore';
+import { Timer } from '../../types/timer';
+import { formatTime } from '../../utils/time';
+import { useTimerStore } from '../../store/useTimerStore';
 import { toast } from 'sonner';
-import { EditTimerModal } from './EditTimerModal';
-import { TimerAudio } from '../utils/audio';
+import { EditTimerModal } from '../modals/EditTimerModal';
+import { TimerAudio } from '../../utils/audio';
 import { TimerControls } from './TimerControls';
 import { TimerProgress } from './TimerProgress';
+import Button from '../ui/Button';
 
 interface TimerItemProps {
   timer: Timer;
@@ -15,10 +16,10 @@ interface TimerItemProps {
 
 export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const { toggleTimer, deleteTimer, updateTimer, restartTimer } = useTimerStore();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const intervalRef = useRef<number | null>(null);
   const timerAudio = TimerAudio.getInstance();
-  const hasEndedRef = useRef(false);
+  const hasEndedRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (timer.isRunning) {
@@ -43,26 +44,34 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
     return () => clearInterval(intervalRef.current!);
   }, [timer.isRunning, timer.id, timer.remainingTime, timer.title, timerAudio, updateTimer]);
 
-  const handleRestart = () => {
+  
+  const handleRestart = useCallback(() => {
     hasEndedRef.current = false;
     restartTimer(timer.id);
-  };
+  },[timer.id, restartTimer]);
 
-  const handleDelete = () => {
+  
+  const handleDelete = useCallback(() => {
     timerAudio.stop();
     deleteTimer(timer.id);
-  };
+  },[timer.id, timerAudio, deleteTimer]);
 
-  const handleToggle = () => {
+  
+  const handleToggle = useCallback(() => {
     if (timer.remainingTime <= 0) {
       hasEndedRef.current = false;
     }
     toggleTimer(timer.id);
-  };
+  },[timer.id, timer.remainingTime, toggleTimer]);
+
+  
+  const handleEditToggle = useCallback(() => {
+    setIsEditModalOpen((prev) => !prev)
+  },[])
 
   return (
     <>
-      <div className="relative bg-white rounded-xl shadow-lg p-6 transition-transform hover:scale-102 overflow-hidden">
+      <div className="relative p-6 overflow-hidden transition-transform bg-white shadow-lg rounded-xl hover:scale-102">
         <div className="absolute inset-0 w-full h-full -z-10 opacity-5">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="2" />
@@ -76,37 +85,41 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
         </div>
         
         <div className="relative">
-          <div className="flex justify-between items-start mb-4">
+          <div className="flex items-start justify-between mb-4">
             <div>
               <h3 className="text-xl font-semibold text-gray-800">{timer.title}</h3>
-              <p className="text-gray-600 mt-1">{timer.description}</p>
+              <p className="mt-1 text-gray-600">{timer.description}</p>
             </div>
             <div className="flex gap-2">
-              <button
-                onClick={() => setIsEditModalOpen(true)}
-                className="p-2 rounded-full hover:bg-blue-50 text-blue-500 transition-colors"
-                title="Edit Timer"
-              >
-                <Pencil className="w-5 h-5" />
-              </button>
-              <button
+
+              {/* Open the edit modal */}
+              <Button 
+                onClick={handleEditToggle}
+                title='Edit Timer'
+                className="p-2 text-blue-500 transition-colors rounded-full hover:bg-blue-50"
+                icon={<Pencil className="w-5 h-5" />}
+              />
+              
+              {/* Restart the timer and reset the flag to false*/}
+              <Button 
                 onClick={handleRestart}
-                className="p-2 rounded-full hover:bg-blue-50 text-blue-500 transition-colors"
-                title="Restart Timer"
-              >
-                <RotateCcw className="w-5 h-5" />
-              </button>
-              <button
-                onClick={handleDelete}
-                className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-colors"
+                title='Restart Timer'
+                className="p-2 text-blue-500 transition-colors rounded-full hover:bg-blue-50"
+                icon={<RotateCcw className="w-5 h-5" />}
+              />
+              
+              {/* Delete the timer */}
+              <Button 
+                onClick={handleDelete} 
                 title="Delete Timer"
-              >
-                <Trash2 className="w-5 h-5" />
-              </button>
+                className="p-2 text-red-500 transition-colors rounded-full hover:bg-red-50"
+                icon={ <Trash2 className="w-5 h-5" />}
+              />
+              
             </div>
           </div>
           <div className="flex flex-col items-center mt-6">
-            <div className="text-4xl font-mono font-bold text-gray-800 mb-4">
+            <div className="mb-4 font-mono text-4xl font-bold text-gray-800">
               {formatTime(timer.remainingTime)}
             </div>
             
