@@ -21,6 +21,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const timerAudio = TimerAudio.getInstance();
   const hasEndedRef = useRef<boolean>(false);
 
+
   useEffect(() => {
     if (timer.isRunning) {
       intervalRef.current = window.setInterval(() => {
@@ -29,12 +30,12 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
         if (timer.remainingTime <= 1 && !hasEndedRef.current) {
           hasEndedRef.current = true;
           timerAudio.play().catch(console.error);
-          
+          // Used .bind to maintain 'this' context, ensuring stop method correctly references TimerAudio instance   
           toast.success(`Timer "${timer.title}" has ended!`, {
             duration: 5000,
             action: {
               label: 'Dismiss',
-              onClick: timerAudio.stop,
+              onClick: timerAudio.stop.bind(timerAudio),
             },
           });
         }
