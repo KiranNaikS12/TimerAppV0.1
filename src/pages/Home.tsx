@@ -46,8 +46,6 @@ function Home() {
     onToggle()
   }, [onToggle])
 
-  console.log(isToggle)
-
   return (
     <div className="min-h-screenbg-gradient-to-br from-gray-50 to-gray-100">
 
