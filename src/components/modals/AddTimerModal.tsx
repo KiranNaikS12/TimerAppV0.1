@@ -3,6 +3,7 @@ import { X, Clock } from 'lucide-react';
 import { useTimerStore } from '../../store/useTimerStore';
 import { validateTimerForm } from '../../utils/validation';
 import Button from '../ui/Button';
+import { toast } from 'sonner';
 
 interface AddTimerModalProps {
   isOpen: boolean;
@@ -52,6 +53,8 @@ const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose }) => {
       remainingTime: totalSeconds,
       isRunning: false,
     });
+    
+    toast.success("Timer added successfully!"); 
 
     onClose();
     setTitle('');

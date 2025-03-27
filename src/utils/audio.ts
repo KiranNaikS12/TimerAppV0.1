@@ -26,6 +26,8 @@ export class TimerAudio {
   async play(): Promise<void> {
     try {
       await this.initializeAudioContext();
+
+      console.log('AudioContext Initialized:', this.audioContext);
       
       if (!this.audioContext) {
         throw new Error('AudioContext not initialized');
