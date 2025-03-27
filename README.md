@@ -1,10 +1,10 @@
 
-# *********Timer App- Overview**************
+# Timer App- Overview
 The Timer App allows users to set and manage multiple timers simultaneously, ensuring they stay punctual and organized. This app is particularly useful for day-to-day task management. It provides a responsive user interface, notification alerts, and persistence of timers across page refreshes.
 
 
 # ************ PROJECT SETUP ************
-1. Clone the repository:  git clone https://github.com/your-repo/timer-app.git
+1. Clone the repository:  git clone https://github.com/KiranNaikS12/TimerAppV0.1.git
 
 2. Navigate to the project directory: cd timer
 
@@ -57,7 +57,3 @@ Used a single modal component for adding and editing timers to eliminate redunda
 3. Created a reusable useToggle hook for boolean state management.
 4. Navigation Enhancements: Ensured the navbar remains properly positioned when content exceeds the viewport height.
 5. Refactored Folder Structure: Improved maintainability by restructuring files and components.
-
-
-
-# ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
