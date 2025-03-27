@@ -17,7 +17,6 @@ interface TimerItemProps {
 
 const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const { toggleTimer, deleteTimer, updateTimer, restartTimer } = useTimerStore();
-  // const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isToggle, onToggle ] = useToggle()
   const intervalRef = useRef<number | null>(null);
   const timerAudio = TimerAudio.getInstance();
