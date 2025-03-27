@@ -4,11 +4,11 @@ import { Timer } from '../../types/timer';
 import { formatTime } from '../../utils/time';
 import { useTimerStore } from '../../store/useTimerStore';
 import { toast } from 'sonner';
-import { EditTimerModal } from '../modals/EditTimerModal';
 import { TimerAudio } from '../../utils/audio';
 import { TimerControls } from './TimerControls';
 import  TimerProgress  from './TimerProgress';
 import Button from '../ui/Button';
+import TimerModal from '../modals/TimerModal';
 
 interface TimerItemProps {
   timer: Timer;
@@ -139,10 +139,11 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
         </div>
       </div>
 
-      <EditTimerModal
+      <TimerModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         timer={timer}
+        mode="edit"
       />
     </>
   );
