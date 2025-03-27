@@ -6,13 +6,13 @@ import Button from '../components/ui/Button';
 import { ToastPosition } from '../types/positionProps';
 import useThorttle from '../hooks/useThrottle';
 import TimerModal from '../components/modals/TimerModal';
+import useToggle from '../hooks/useToggle';
 
 function Home() {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isToggle, onToggle] = useToggle() //custom toggle
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [position, setPosition] = useState<ToastPosition>(ToastPosition.TopRight); //Toast position..
-
-
+  
   // Adds a scroll event listener to detect when the page exceeds 50px scroll, 
   const handleScroll = useThorttle(() => {
     setScrolled(window.scrollY > 50)
@@ -43,10 +43,10 @@ function Home() {
 
 
   const toggleModal = useCallback(() => {
-    setIsModalOpen((prev) => !prev)
-  }, [])
+    onToggle()
+  }, [onToggle])
 
-
+  console.log(isToggle)
 
   return (
     <div className="min-h-screenbg-gradient-to-br from-gray-50 to-gray-100">
@@ -72,7 +72,7 @@ function Home() {
         <TimerList />
 
         <TimerModal
-          isOpen={isModalOpen}
+          isOpen={isToggle}
           onClose={toggleModal}
           mode="add"
         />

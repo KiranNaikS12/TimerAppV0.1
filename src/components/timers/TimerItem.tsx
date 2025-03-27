@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Trash2, RotateCcw, Pencil } from 'lucide-react';
 import { Timer } from '../../types/timer';
 import { formatTime } from '../../utils/time';
@@ -9,6 +9,7 @@ import  TimerControls  from './TimerControls';
 import  TimerProgress  from './TimerProgress';
 import Button from '../ui/Button';
 import TimerModal from '../modals/TimerModal';
+import useToggle from '../../hooks/useToggle';
 
 interface TimerItemProps {
   timer: Timer;
@@ -16,7 +17,8 @@ interface TimerItemProps {
 
 const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const { toggleTimer, deleteTimer, updateTimer, restartTimer } = useTimerStore();
-  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  // const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isToggle, onToggle ] = useToggle()
   const intervalRef = useRef<number | null>(null);
   const timerAudio = TimerAudio.getInstance();
   const hasEndedRef = useRef<boolean>(false);
@@ -68,8 +70,8 @@ const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   
   // Handle timer edit modal
   const handleEditToggle = useCallback(() => {
-    setIsEditModalOpen((prev) => !prev)
-  },[])
+    onToggle()
+  },[onToggle])
 
   return (
     <>
@@ -140,8 +142,8 @@ const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
       </div>
 
       <TimerModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
+        isOpen={isToggle}
+        onClose={handleEditToggle}
         timer={timer}
         mode="edit"
       />
