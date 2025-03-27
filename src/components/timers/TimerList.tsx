@@ -1,9 +1,9 @@
 import React from 'react';
-import { TimerItem } from './TimerItem';
+import TimerItem  from './TimerItem';
 import { useTimerStore } from '../../store/useTimerStore';
 import { EmptyState } from '../ui/EmptyState';
 
-export const TimerList: React.FC = () => {
+const TimerList: React.FC = () => {
   const { timers } = useTimerStore();
 
   return (
@@ -28,3 +28,5 @@ export const TimerList: React.FC = () => {
     </div>
   );
 };
+
+export default TimerList;

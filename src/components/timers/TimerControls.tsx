@@ -3,7 +3,7 @@ import { Play, Pause, RotateCcw } from 'lucide-react';
 import Button from '../ui/Button';
 import { TimerControlsProps } from '../../types/timer';
 
-export const TimerControls: React.FC<TimerControlsProps> = ({
+const TimerControls: React.FC<TimerControlsProps> = ({
   isRunning,
   remainingTime,
   onToggle,
@@ -41,3 +41,5 @@ export const TimerControls: React.FC<TimerControlsProps> = ({
     />
   );
 };
+
+export default React.memo(TimerControls)

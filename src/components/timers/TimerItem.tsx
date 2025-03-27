@@ -5,7 +5,7 @@ import { formatTime } from '../../utils/time';
 import { useTimerStore } from '../../store/useTimerStore';
 import { toast } from 'sonner';
 import { TimerAudio } from '../../utils/audio';
-import { TimerControls } from './TimerControls';
+import  TimerControls  from './TimerControls';
 import  TimerProgress  from './TimerProgress';
 import Button from '../ui/Button';
 import TimerModal from '../modals/TimerModal';
@@ -14,7 +14,7 @@ interface TimerItemProps {
   timer: Timer;
 }
 
-export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
+const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const { toggleTimer, deleteTimer, updateTimer, restartTimer } = useTimerStore();
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const intervalRef = useRef<number | null>(null);
@@ -148,3 +148,5 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
     </>
   );
 };
+
+export default React.memo(TimerItem);

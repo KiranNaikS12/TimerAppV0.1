@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Plus, Clock } from 'lucide-react';
-import { TimerList } from '../components/timers/TimerList';
+import TimerList from '../components/timers/TimerList';
 import { Toaster } from 'sonner';
 import Button from '../components/ui/Button';
 import { ToastPosition } from '../types/positionProps';
@@ -26,7 +26,7 @@ function Home() {
     }
   }, [handleScroll])
 
-  
+
   // Handling responsive toast position
   useEffect(() => {
     const updatePosition = () => {
@@ -40,13 +40,13 @@ function Home() {
       window.removeEventListener('resize', updatePosition)
     }
   }, [])
-  
+
 
   const toggleModal = useCallback(() => {
     setIsModalOpen((prev) => !prev)
   }, [])
 
-  
+
 
   return (
     <div className="min-h-screenbg-gradient-to-br from-gray-50 to-gray-100">
@@ -74,7 +74,7 @@ function Home() {
         <TimerModal
           isOpen={isModalOpen}
           onClose={toggleModal}
-          mode="add" 
+          mode="add"
         />
       </div>
     </div>
